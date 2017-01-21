@@ -20,6 +20,8 @@ namespace Snakcute.Shared
 
         public DbSet<RealmServer> RealmServers { get; set; }
 
+        public DbSet<IpBan> IpBans { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -57,6 +59,11 @@ namespace Snakcute.Shared
             {
                 e.HasIndex(x => x.MaxUser);
                 e.HasIndex(x => x.CurrentUser);
+            });
+
+            builder.Entity<IpBan>(e =>
+            {
+                e.HasIndex(x => x.Unban);
             });
         }
     }
