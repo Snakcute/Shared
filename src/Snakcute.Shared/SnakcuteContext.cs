@@ -10,6 +10,8 @@ namespace Snakcute.Shared
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<UserRelation> UserRelations { get; set; }
+
         public DbSet<Battle> Battles { get; set; }
 
         public DbSet<Snake> Snakes { get; set; }
@@ -32,11 +34,29 @@ namespace Snakcute.Shared
                 e.HasIndex(x => x.NickName).IsUnique();
             });
 
+            builder.Entity<UserRelation>(e =>
+            {
+                e.HasKey(x => new { x.UserId, x.TargetUserId });
+                e.HasIndex(x => x.Status);
+            });
+
             builder.Entity<Battle>(e =>
             {
                 e.HasIndex(x => x.BeginTime);
                 e.HasIndex(x => x.EndTime);
                 e.HasIndex(x => x.Type);
+            });
+
+            builder.Entity<BattleServer>(e =>
+            {
+                e.HasIndex(x => x.MaxUser);
+                e.HasIndex(x => x.CurrentUser);
+            });
+
+            builder.Entity<RealmServer>(e =>
+            {
+                e.HasIndex(x => x.MaxUser);
+                e.HasIndex(x => x.CurrentUser);
             });
         }
     }
