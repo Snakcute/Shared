@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+#if !NET35
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace Snakcute.Shared
 {
@@ -18,8 +18,9 @@ namespace Snakcute.Shared
         public UserRole Role { get; set; }
 
         public UserStatus Status { get; set; }
-
+#if !NET35
         [MaxLength(64)]
+#endif
         public string NickName { get; set; }
 
         public string OpenId { get; set; }
@@ -29,8 +30,9 @@ namespace Snakcute.Shared
         public long Coin { get; set; }
 
         public long MMR { get; set; }
-
+#if !NET35
         [MaxLength(64)]
+#endif
         public string Token { get; set; }
 
         public int Level { get; set; } = 1;
