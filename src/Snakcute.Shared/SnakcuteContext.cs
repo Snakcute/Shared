@@ -8,6 +8,13 @@ namespace Snakcute.Shared
 {
     public class SnakcuteContext : DbContext
     {
+        private string _connectionString;
+
+        public SnakcuteContext(string connectionString) : base()
+        {
+            _connectionString = connectionString;
+        }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<UserRelation> UserRelations { get; set; }
@@ -65,6 +72,12 @@ namespace Snakcute.Shared
             {
                 e.HasIndex(x => x.Unban);
             });
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseMySql(_connectionString);
         }
     }
 }
